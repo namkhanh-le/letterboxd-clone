@@ -4,14 +4,16 @@ require("dotenv").config();
 
 // importing this just to trigger the db connection check
 require("./db");
+// import 
 const authRoutes = require("./routes/auth");
-
+const movieRoutes = require("./routes/movies");
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/movies", movieRoutes);
 
 app.get("/", (req, res) => {
   res.send("letterboxd clone api is running");

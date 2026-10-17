@@ -10,7 +10,7 @@ function verifyToken(req, res, next) {
     return res.status(401).json({ message: "no token provided" });
   }
 
-  // grab second part
+  // grab second part, no bearer prefix
   const token = authHeader.split(" ")[1];
 
   if (!token) {
@@ -22,6 +22,7 @@ function verifyToken(req, res, next) {
       return res.status(403).json({ message: "invalid token" });
     }
     // now routes after this can use req.user.id
+    // if this is correct :
     req.user = decoded;
     next();
   });

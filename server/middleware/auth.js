@@ -22,7 +22,6 @@ function verifyToken(req, res, next) {
       return res.status(403).json({ message: "invalid token" });
     }
     // now routes after this can use req.user.id
-    // if this is correct :
     req.user = decoded;
     next();
   });

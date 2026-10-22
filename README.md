@@ -35,3 +35,7 @@ npm run dev
 ```
 open `.env` and fill in your DATABASE_URL, JWT_SECRET, and TMDB_API_KEY.
 dont share .env anywhere as that contains your information, only .env.example
+
+## Todo
+- Frontend
+- Messages

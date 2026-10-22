@@ -1,6 +1,6 @@
 # letterboxd-clone
 
-A PERN stack (PostgreSQL, Express, React, Node) clone of Letterboxd, built as a personal/school project.
+A PERN stack (PostgreSQL, Express, React, Node) clone of Letterboxd, built as a personal project.
 Search movies through the TMDB API, then log what you've watched with a date, a star rating, and an optional review.
 
 ## Features
@@ -35,3 +35,7 @@ npm run dev
 ```
 open `.env` and fill in your DATABASE_URL, JWT_SECRET, and TMDB_API_KEY.
 dont share .env anywhere as that contains your information, only .env.example
+
+## Todo
+- Frontend
+- Messages

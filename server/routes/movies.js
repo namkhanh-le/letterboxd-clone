@@ -23,7 +23,7 @@ router.get("/popular", async (req, res) => {
   }
 });
 
-// GET /api/movies/search?query=inception
+// GET /api/movies/search?query=...
 router.get("/search", async (req, res) => {
   const query = req.query.query;
 
@@ -46,7 +46,7 @@ router.get("/search", async (req, res) => {
 });
 
 // GET /api/movies/:id  -> details for one movie
-// keep this one last, otherwise it would grab "popular" and "search" as if they were ids
+// needs to be last or it would grab "popular" and "search" as if they were ids
 router.get("/:id", async (req, res) => {
   try {
     const response = await axios.get(`${TMDB_BASE}/movie/${req.params.id}`, {

@@ -17,8 +17,10 @@ router.post("/register", async (req, res) => {
   }
 
   try {
+    // has pass
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
+    // insert
     const newUser = await pool.query(
       "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email",
       [username, email, hashedPassword]
@@ -32,10 +34,10 @@ router.post("/register", async (req, res) => {
     );
 
     res.json({ token, user: newUser.rows[0] });
+  // catch error  
   } catch (err) {
     console.log(err);
-    // 23505 = postgres "unique violation", means username or email is taken
-    if (err.code === "23505") {
+    if (err.code === "23505") { // means username or email is taken
       return res.status(400).json({ message: "username or email already taken" });
     }
     res.status(500).json({ message: "server error" });
@@ -47,20 +49,25 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const result = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+    // check if user exists
+    const result = await pool.query(
+      "SELECT * FROM users WHERE email = $1", 
+      [email]
+    );
 
-    if (result.rows.length === 0) {
+    if (result.rows.length === 0) { // if no user found
       return res.status(400).json({ message: "invalid credentials" });
     }
 
+    // get user and compare pass
     const user = result.rows[0];
     const validPassword = await bcrypt.compare(password, user.password);
 
-    if (!validPassword) {
+    if (!validPassword) { // if password incorrect
       return res.status(400).json({ message: "invalid credentials" });
     }
 
-    const token = jwt.sign(
+    const token = jwt.sign( // make jwt token
       { id: user.id, username: user.username },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
@@ -68,7 +75,10 @@ router.post("/login", async (req, res) => {
 
     res.json({
       token,
-      user: { id: user.id, username: user.username, email: user.email },
+      user: { 
+        id: user.id, 
+        username: user.username, 
+        email: user.email },
     });
   } catch (err) {
     console.log(err);

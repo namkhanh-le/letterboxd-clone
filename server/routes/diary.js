@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require("../db");
 const verifyToken = require("../middleware/auth");
 
-// POST /api/diary  (protected)
+// POST /api/diary
 // logs a movie: date + rating are required, review text is optional
 router.post("/", verifyToken, async (req, res) => {
   const { movieId, movieTitle, posterPath, watchedDate, rating, reviewText, rewatch } = req.body;
@@ -25,7 +25,7 @@ router.post("/", verifyToken, async (req, res) => {
   }
 });
 
-// GET /api/diary/user/:userId  ->every logs from one person
+// GET /api/diary/user/:userId  -> every logs from one person
 router.get("/user/:userId", async (req, res) => {
   try {
     const entries = await pool.query(

@@ -1,6 +1,6 @@
 # letterboxd-clone
 
-A PERN stack (PostgreSQL, Express, React, Node) clone of Letterboxd, built as a personal/school project.
+A PERN stack (PostgreSQL, Express, React, Node) clone of Letterboxd, built as a personal project.
 Search movies through the TMDB API, then log what you've watched with a date, a star rating, and an optional review.
 
 ## Features
